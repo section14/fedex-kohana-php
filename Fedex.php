@@ -34,7 +34,9 @@ class Fedex_Core
 				$this->Customer->City = $_SESSION['cart']['ship']['city'];
 				$this->Customer->StateOrProvinceCode = $_SESSION['cart']['ship']['state'];
 				$this->Customer->PostalCode = $_SESSION['cart']['ship']['postal_code'];
-				$this->Customer->CountryCode = country::code($_SESSION['cart']['ship']['country'], "iso_2");
+				//this needs to be a ISO2 or ISO3 country code
+				//ex: US or USA, CA or CAN
+				$this->Customer->CountryCode = $_SESSION['cart']['ship']['country']);
 
 				//array to grab product information
 				$package = array();
