@@ -54,7 +54,7 @@ class Fedex_Rate_Core {
 				}
 
 			$request['WebAuthenticationDetail'] = array('UserCredential' =>
-												  array('Key' => $Fedex->customer_info()->Key, 'Password' => $Fedex->customer_info()->Password)); // Replace 'XXX' and 'YYY' with FedEx provided credentials
+											array('Key' => $Fedex->customer_info()->Key, 'Password' => $Fedex->customer_info()->Password)); // Replace 'XXX' and 'YYY' with FedEx provided credentials
 			$request['ClientDetail'] = array('AccountNumber' => $Fedex->customer_info()->AccountNumber, 'MeterNumber' => $Fedex->customer_info()->MeterNumber);// Replace 'XXX' with your account and meter number
 			$request['TransactionDetail'] = array('CustomerTransactionId' => ' *** Rate Available Services Request v7 using PHP ***');
 			$request['Version'] = array('ServiceId' => 'crs', 'Major' => '7', 'Intermediate' => '0', 'Minor' => '0');
@@ -64,19 +64,19 @@ class Fedex_Rate_Core {
 
 			// Service Type and Packaging Type are not passed in the request
 			$request['RequestedShipment']['Shipper'] = array('Address' => array(
-													  'StreetLines' => array($Fedex->shipment()->Shipper->StreetLines), // Origin details
-													  'City' => $Fedex->shipment()->Shipper->City,
-													  'StateOrProvinceCode' => $Fedex->shipment()->Shipper->StateOrProvinceCode,
-													  'PostalCode' => $Fedex->shipment()->Shipper->PostalCode,
-													  'CountryCode' => $Fedex->shipment()->Shipper->CountryCode));
+												'StreetLines' => array($Fedex->shipment()->Shipper->StreetLines), // Origin details
+												'City' => $Fedex->shipment()->Shipper->City,
+												'StateOrProvinceCode' => $Fedex->shipment()->Shipper->StateOrProvinceCode,
+												'PostalCode' => $Fedex->shipment()->Shipper->PostalCode,
+												'CountryCode' => $Fedex->shipment()->Shipper->CountryCode));
 
 
 			$request['RequestedShipment']['Recipient'] = array('Address' => array (
-														   'StreetLines' => array($Fedex->shipment()->Customer->StreetLines), // Destination details
-														   'City' => $Fedex->shipment()->Customer->City,
-														   'StateOrProvinceCode' => $Fedex->shipment()->Customer->StateOrProvinceCode,
-														   'PostalCode' => $Fedex->shipment()->Customer->PostalCode,
-														   'CountryCode' => $Fedex->shipment()->Customer->CountryCode));
+												'StreetLines' => array($Fedex->shipment()->Customer->StreetLines), // Destination details
+												'City' => $Fedex->shipment()->Customer->City,
+												'StateOrProvinceCode' => $Fedex->shipment()->Customer->StateOrProvinceCode,
+												'PostalCode' => $Fedex->shipment()->Customer->PostalCode,
+												'CountryCode' => $Fedex->shipment()->Customer->CountryCode));
 
 			//create array of commodity values
 			//if needed
@@ -84,12 +84,12 @@ class Fedex_Rate_Core {
 			/**foreach($line_item as $comm)
 				{
 					array('Commodities' => array(
-					'Name' => 'Jaguar Shift Knob',
+					'Name' => 'Blue Hat',
 					'NumberOfPieces' => '2',
-					'Description' => 'Wood shift knob',
+					'Description' => 'Blue Baseball Hat',
 					'CountryOfManufacture' => 'US',
 					'Weight' => array(	'Units' => 'LB',
-					'Value' => 2.0),
+					'Value' => 1.00),
 					'Quantity' => '2',
 					'QuantityUnits' => 'EA',
 					'UnitPrice' => array('Currency' => 'USD', 'Amount' => '25'),
@@ -103,9 +103,9 @@ class Fedex_Rate_Core {
 
 
 														/**'Commodities' => array(
-																	'Name' => 'Jaguar Shift Knob',
+																	'Name' => 'Red Shoes',
 																	'NumberOfPieces' => '2',
-																	'Description' => 'Wood shift knob',
+																	'Description' => 'Red Nike Shoes',
 																	'CountryOfManufacture' => 'US',
 																	'Weight' => array(	'Units' => 'LB',
 																						'Value' => 2.0),
@@ -115,9 +115,9 @@ class Fedex_Rate_Core {
 																	'CustomsValue' => array('Currency' => 'USD', 'Amount' => '50')),
 
 														'Commodities' => array(
-																	'Name' => 'Jaguar Fuel Pump',
+																	'Name' => 'Black Coat',
 																	'NumberOfPieces' => '1',
-																	'Description' => '1967 Jaguar E-Type Fuel Pump',
+																	'Description' => 'Black Wool Coat',
 																	'CountryOfManufacture' => 'US',
 																	'Weight' => array(	'Units' => 'LB',
 																						'Value' => 6.0),
@@ -129,25 +129,25 @@ class Fedex_Rate_Core {
 
 
 			$request['RequestedShipment']['ShippingChargesPayment'] = array('PaymentType' => 'SENDER',
-																			'Payor' => array('AccountNumber' => $Fedex->customer_info()->AccountNumber,
-																			'CountryCode' => 'US'));
+											'Payor' => array('AccountNumber' => $Fedex->customer_info()->AccountNumber,
+											'CountryCode' => 'US'));
 			$request['RequestedShipment']['RateRequestTypes'] = 'ACCOUNT';
 			$request['RequestedShipment']['RateRequestTypes'] = 'LIST';
 			$request['RequestedShipment']['PackageCount'] = $Fedex->shipment()->Package->Count;
 			$request['RequestedShipment']['PackageDetail'] = $Fedex->shipment()->Package->Detail;
 			$request['RequestedShipment']['RequestedPackageLineItems'] = array(
-																				'0' =>
-																				array('InsuredValue' => array('Currency' => 'USD', 'Amount' => $shipment_value),
-																					  'Weight' => array('Value' => $shipment_total,
-																					  'Units' => 'LB'))
-																			  );
+												'0' =>
+													array('InsuredValue' => array('Currency' => 'USD', 'Amount' => $shipment_value),
+														'Weight' => array('Value' => $shipment_total,
+														'Units' => 'LB'))
+														);
 
 
-				//////////////////////////////////////////////////////////
-				/// Template for using dimensions or multiple packages ///
-				//////////////////////////////////////////////////////////
+			//////////////////////////////////////////////////////////
+			/// Template for using dimensions or multiple packages ///
+			//////////////////////////////////////////////////////////
 
-				/*'1' => array('Weight' => array('Value' => 5.0,
+			/*'1' => array('Weight' => array('Value' => 5.0,
 							  'Units' => 'LB'),
 							  'Dimensions' => array('Length' => 20,
 							  'Width' => 20,
